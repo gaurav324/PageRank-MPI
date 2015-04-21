@@ -8,12 +8,6 @@
 
 using namespace std;
 
-class Node {
-    uint64_t vertex;
-    float rank;
-    std::list<unsigned> edges;
-};
-
 int main() {
     MPI_Init(NULL, NULL);
      
@@ -25,7 +19,6 @@ int main() {
     MPI_Comm_rank(MPI_COMM_WORLD, &host_id);
 
     // Read in the file.
-    std::vector<Node> graph;
 
     // Create appropriate data structures. 
 
