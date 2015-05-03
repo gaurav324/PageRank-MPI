@@ -1,6 +1,6 @@
-# Converts an edge list to metis-ified undirected graph.
+# Converts an edge list to a normal directed graph.
 
-# edgelist_2_adj.py <edgelist> <nodes>
+# edgelist_2_adj_nonmetis.py <edgelist>
 import sys
 
 adj_list = []
@@ -17,23 +17,17 @@ with open(sys.argv[1], "r") as lines:
             vertex_neighbor_map[a].append(b)
         else:
             vertex_neighbor_map[a] = [b]
-        
-        if b in vertex_neighbor_map:
-            vertex_neighbor_map[b].append(a)
-        else:
-            vertex_neighbor_map[b] = [a]
 
 nodes = int(sys.argv[2])
 for i in range(nodes):
     if i in vertex_neighbor_map:
-        x = set(vertex_neighbor_map[i])
-        x = list(x)
+        x = vertex_neighbor_map[i]
         x.sort()
         adj_list.append(x)
     else:
         adj_list.append([])
 
-f = open(sys.argv[1] + "_adjacency", "w")
+f = open(sys.argv[1] + "_adjacency_nonmetis", "w")
 for adj in adj_list:
     f.write(" ".join(map(lambda x: str(x+1), adj)))
     f.write("\n")
