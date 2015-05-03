@@ -9,6 +9,8 @@ edges = 0
 with open(sys.argv[1], "r") as lines:
     for line in lines:
         a, b = map(lambda x: int(x), line.split())
+        if a == b:
+            continue
         if a in vertex_neighbor_map:
             vertex_neighbor_map[a].append(b)
         else:
@@ -21,10 +23,13 @@ with open(sys.argv[1], "r") as lines:
 
 nodes = len(vertex_neighbor_map.keys())
 for i in range(nodes):
-    x = set(vertex_neighbor_map[i])
-    x = list(x)
-    x.sort()
-    adj_list.append(x)
+    if i in vertex_neighbor_map:
+        x = set(vertex_neighbor_map[i])
+        x = list(x)
+        x.sort()
+        adj_list.append(x)
+    else:
+        adj_list.append([])
 
 f = open(sys.argv[1] + "_adjacency", "w")
 for adj in adj_list:
