@@ -1,4 +1,4 @@
-#include <Node.h>
+#include "Node.h"
 
 Node::Node() {
     this->out_degree = 0;
