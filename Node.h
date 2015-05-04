@@ -6,11 +6,12 @@
  * Created on: May 3, 2015
  * Author: Gaurav Nanda
  */
-#ifdef NODE_H_
-#define NODE_H_
 
 #include <vector>
 #include <utility>
+
+#ifdef NODE_H_
+#define NODE_H_
 
 using namespace std;
 

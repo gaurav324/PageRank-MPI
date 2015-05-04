@@ -1,4 +1,5 @@
 #include <cstdlib>
+#include "Graph.h"
 
 // Constructor.
 Graph::Graph() {

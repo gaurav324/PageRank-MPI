@@ -7,6 +7,7 @@
 #include <list>
 
 #include "Graph.h"
+#include "Node.h"
 
 using namespace std;
 int main(int argc, char *argv[]) {

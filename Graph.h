@@ -10,10 +10,10 @@
  *
  */
 
+#include <vector>
+
 #ifndef GRAPH_H_
 #define GRAPH_H_
-
-#include <vector>
 
 using namespace std;
 class Graph {
