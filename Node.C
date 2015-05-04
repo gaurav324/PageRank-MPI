@@ -1,4 +1,4 @@
-#include "Node.h"
+#include <Node.h>
 
 Node::Node() {
     this->out_degree = 0;
@@ -8,23 +8,23 @@ Node::~Node() {
     // Nothing to destroy.
 }
 
-uint64_t getOutDegree() {
+uint64_t Node::getOutDegree() {
     return this->out_degree;
 }
 
-void setOutDegree(uint64_t out_degree) {
+void Node::setOutDegree(uint64_t out_degree) {
     this->out_degree = out_degree;
 }
 
-vector<uint8_t>& getOutCores() {
+vector<uint8_t>& Node::getOutCores() {
     return out_cores;
 }
 
-void addOutCore(uint8_t core_no) {
+void Node::addOutCore(uint8_t core_no) {
     this->out_cores.push_back(core_no);
 }
 
-vector<pair<uint8_t, uint64_t>> getIncomingNodes() {
+vector<pair<uint8_t, uint64_t>> Node::getIncomingNodes() {
     return in_nodes;
 }
 

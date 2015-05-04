@@ -50,21 +50,21 @@ void Graph::ingestFile(std::string path) {
 }
 
 // Return node on index.
-Node* getNode(int index) {
+Node* Graph::getNode(int index) {
     return this->nodes[index];
 }
 
 // Return total local nodes;
-uint64_t getTotalLocalNodes() {
+uint64_t Graph::getTotalLocalNodes() {
     return this->nodes.size();
 }
 
 // Return total number of nodes across all MPI nodes.
-uint64_t getTotalNodes() {
+uint64_t Graph::getTotalNodes() {
     return this->total_node_count;
 }
 
 // Update total nodes.
-void updateTotalNodes(uint64_t count) {
+void Graph::updateTotalNodes(uint64_t count) {
     this->total_node_count += count;
 }
