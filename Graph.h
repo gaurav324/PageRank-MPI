@@ -16,8 +16,7 @@
 #include <string>
 
 #include <stdint.h>
-#include "Node.h"
-
+#include <Node.h>
 
 #ifndef GRAPH_H_
 #define GRAPH_H_
