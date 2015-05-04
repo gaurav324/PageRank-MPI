@@ -7,26 +7,24 @@
  * Author: Gaurav Nanda
  */
 
+#ifndef _MPI_NODE_H_
+#define _MPI_NODE_H_
+
 #include <vector>
 #include <utility>
-
-#include <stdint.h>
-
-#ifdef NODE_H_
-#define NODE_H_
 
 using namespace std;
 
 class Node {
 private:
     // Total number of edges going out of the edge.
-    uint64_t out_degree;
+    int out_degree;
 
     // Each node maintains which all cores it would have to send updates to.
-    vector<uint8_t> out_cores;
+    vector<short> out_cores;
     
     // Store all of the incoming nodes. Each node is represented 
-    vector<pair<uint8_t, uint64_t>> in_nodes;
+    vector < pair<short, int> > in_nodes;
 public:
     // Constructor.
     Node();
@@ -35,23 +33,23 @@ public:
     virtual ~Node();
 
     // Return the number of out going edges from the node.
-    uint64_t getOutDegree();
+    int getOutDegree();
 
     // Sets out degree.
-    void setOutDegree(uint64_t out_degree);
+    void setOutDegree(int out_degree);
     
     // Get the vector having list of cores, to which page rank
     // would need to send updates.
-    vector<uint8_t>& getOutCores();
+    vector<short>& getOutCores();
 
     // Add mpi node to the out_core.
-    void addOutCore(uint8_t core_no);
+    void addOutCore(short core_no);
 
     // Get list of all the incoming nodes.
-    vector<pair<uint8_t, uint64_t>> getIncomingNodes();
+    vector< pair<short, int> > getIncomingNodes();
 
     // Add one incoming node.
-    void addIncomingNode(uint8_t core, uint64_t rank);
+    void addIncomingNode(short core, int rank);
 };
 
 #endif /* NODE_H_ */

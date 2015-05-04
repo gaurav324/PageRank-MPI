@@ -10,16 +10,16 @@
  *
  */
 
+#ifndef _MPI_GRAPH_H_
+#define _MPI_GRAPH_H_
+
 #include <iostream>
 #include <fstream>
 #include <vector>
 #include <string>
 
 #include <stdint.h>
-#include <Node.h>
-
-#ifndef GRAPH_H_
-#define GRAPH_H_
+#include "Node.h"
 
 using namespace std;
 class Graph {
@@ -28,7 +28,7 @@ class Graph {
         vector<Node*> nodes;
         
         // Total nodes. Sum of all the nodes on all the MPI tasks.
-        uint64_t total_node_count;
+        int total_node_count;
     public:
         // Constructor.
         Graph();
@@ -46,13 +46,13 @@ class Graph {
         Node* getNode(int index);
 
         // Return total local nodes;
-        uint64_t getTotalLocalNodes();
+        int getTotalLocalNodes();
 
         // Return the total number of nodes across all MPI tasks.
-        uint64_t getTotalNodes();
+        int getTotalNodes();
 
         // Update the total number of nodes across all MPI tasks.
-        void updateTotalNodes(uint64_t count);
+        void updateTotalNodes(int count);
 };
 
 #endif /* GRAPH_H_ */

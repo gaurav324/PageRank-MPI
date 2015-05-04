@@ -8,27 +8,27 @@ Node::~Node() {
     // Nothing to destroy.
 }
 
-uint64_t Node::getOutDegree() {
+int Node::getOutDegree() {
     return this->out_degree;
 }
 
-void Node::setOutDegree(uint64_t out_degree) {
+void Node::setOutDegree(int out_degree) {
     this->out_degree = out_degree;
 }
 
-vector<uint8_t>& Node::getOutCores() {
+vector<short>& Node::getOutCores() {
     return out_cores;
 }
 
-void Node::addOutCore(uint8_t core_no) {
+void Node::addOutCore(short core_no) {
     this->out_cores.push_back(core_no);
 }
 
-vector<pair<uint8_t, uint64_t>> Node::getIncomingNodes() {
+vector<pair<short, int> > Node::getIncomingNodes() {
     return in_nodes;
 }
 
-void addIncomingNode(uint8_t core, uint64_t rank) {
-    pair<uint8_t, uint64_t> cr(core, rank);
+void Node::addIncomingNode(short core, int rank) {
+    pair<short, int> cr(core, rank);
     this->in_nodes.push_back(cr);
 }

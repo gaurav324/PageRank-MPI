@@ -15,10 +15,10 @@ int main(int argc, char *argv[]) {
     MPI_Init(NULL, NULL);
      
     // Start-MPI
-    uint64_t size;
+    int size;
     MPI_Comm_size(MPI_COMM_WORLD, &size);
 
-    uint64_t host_id;
+    int host_id;
     MPI_Comm_rank(MPI_COMM_WORLD, &host_id);
 
     // Read in the file.
@@ -31,17 +31,17 @@ int main(int argc, char *argv[]) {
     Node* n = g.getNode(0);
     cout << "OutDegree: " << n->getOutDegree() << endl;
 
-    vector<uint8_t>& out_cores = n->getOutCores();
+    vector<short>& out_cores = n->getOutCores();
     cout << "Out cores: " << endl;
     for (int i=0; i < out_cores.size(); ++i) {
         cout << out_cores[i] << "\t";
     }
     cout << endl;
 
-    vector<pair<uint8_t, uint64_t>> in_nodes = n->getIncomingNodes();
+    vector<pair<short, int> > in_nodes = n->getIncomingNodes();
     cout << "In-nodes: " << endl;
     for (int i=0; i < in_nodes.size(); ++i) {
-        cout << in_nodes[i] << "\t";
+        cout << in_nodes[i].first << "-" << in_nodes[i].second << "\t";
     }
     cout << endl;
 

@@ -1,4 +1,5 @@
 #include <cstdlib>
+#include <sstream>
 #include "Graph.h"
 
 // Constructor.
@@ -17,35 +18,36 @@ void Graph::ingestFile(std::string path) {
 
     string line;
     if (myfile.is_open()) {
-        string deleimitor1 = "#";
-        string delimitor2 = ",";
+        char delimitor1 = '#';
+        char delimitor2 = ',';
         while (getline(myfile, line)) {
             Node *n = new Node();
 
-            int first_hash_index = line.find(delimitor1);
-            int second_hash_index = line.find(delimitor2);
+            int first_hash_index = line.find("" + delimitor1);
+            int second_hash_index = line.find("" + delimitor2);
 
             // Set out degree.
-            uint64_t out_degree = atol(line.substr(0, first_hash_index).c_str());
+            int out_degree = atol(line.substr(0, first_hash_index).c_str());
             n->setOutDegree(out_degree);
 
             // Set all the out cores for this node.
             std::stringstream ss(line.substr(first_hash_index, second_hash_index - first_hash_index));
             std::string item;
             while (std::getline(ss, item, delimitor2)) {
-                uint8_t core_no = atoi(item);
+                short core_no = atoi(item.c_str());
                 n->addOutCore(core_no);
             }
 
             // Set all the incoming nodes.
-            std::stringstream ss(line.substr(second_hash_index, line.length()).c_str());
-            std::string item;
-            while (std::getline(ss, item, delimitor2)) {
-                int core_rank_split_index = item.split("-");
-                uint8_t core = atoi(item.substr(0, core_rank_split_index).c_str());
-                uint64_t rank = atoi(item.substr(core_rank_split_index, item.length()).cstr());
+            std::stringstream ss1(line.substr(second_hash_index, line.length()).c_str());
+            std::string item1 = "";
+            while (std::getline(ss1, item1, delimitor2)) {
+                int core_rank_split_index = item1.find("-");
+                short core = atoi(item1.substr(0, core_rank_split_index).c_str());
+                int rank = atoi(item1.substr(core_rank_split_index, item1.length()).c_str());
                 n->addIncomingNode(core, rank);
             }
+        }
     }
 }
 
@@ -55,16 +57,16 @@ Node* Graph::getNode(int index) {
 }
 
 // Return total local nodes;
-uint64_t Graph::getTotalLocalNodes() {
+int Graph::getTotalLocalNodes() {
     return this->nodes.size();
 }
 
 // Return total number of nodes across all MPI nodes.
-uint64_t Graph::getTotalNodes() {
+int Graph::getTotalNodes() {
     return this->total_node_count;
 }
 
 // Update total nodes.
-void Graph::updateTotalNodes(uint64_t count) {
+void Graph::updateTotalNodes(int count) {
     this->total_node_count += count;
 }
