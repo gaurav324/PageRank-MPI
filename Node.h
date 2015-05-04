@@ -10,6 +10,8 @@
 #include <vector>
 #include <utility>
 
+#include <stdint.h>
+
 #ifdef NODE_H_
 #define NODE_H_
 
