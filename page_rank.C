@@ -1,10 +1,11 @@
 // This is the MPI implementation of the page rank algorithm.
 
-#include <mpi.h>
-
 #include <iostream>
 #include <vector>
 #include <list>
+
+#include <mpi.h>
+#include <stdint.h>
 
 #include "Graph.h"
 #include "Node.h"
