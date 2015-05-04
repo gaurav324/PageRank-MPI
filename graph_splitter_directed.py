@@ -45,8 +45,13 @@ def main(opts, args):
             # Neighbors are 1-indexed. Therefore, subtract one to be consistent.
             neighbors = map(lambda x: int(x) - 1, line.strip().split())
             out_clusters = {}
+            
+            unique_n_clusters = {}
             for n in neighbors:
                 n_cluster = int(split_file_lines[n].strip())
+                unique_n_clusters[n_cluster] = True
+
+            for n_cluster in unique_n_clusters.keys():
                 if cluster_no in cluster_2_cluster_count_map:
                     if n_cluster in cluster_2_cluster_count_map[cluster_no]:
                         cluster_2_cluster_count_map[cluster_no][n_cluster] += 1
@@ -57,6 +62,8 @@ def main(opts, args):
                 else:
                     cluster_2_cluster_count_map[cluster_no] = {n_cluster : 0}
 
+            for n in neighbors:
+                n_cluster = int(split_file_lines[n].strip())
                 if n in in_nodes_map:
                     in_nodes_map[n].append((cluster_no, cluster_2_cluster_count_map[cluster_no][n_cluster]))
                 else:

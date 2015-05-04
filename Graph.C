@@ -23,15 +23,15 @@ void Graph::ingestFile(std::string path) {
         while (getline(myfile, line)) {
             Node *n = new Node();
 
-            int first_hash_index = line.find("" + delimitor1);
-            int second_hash_index = line.find("" + delimitor2);
+            int first_hash_index = line.find(delimitor1);
+            int second_hash_index = line.rfind(delimitor1);
 
             // Set out degree.
             int out_degree = atol(line.substr(0, first_hash_index).c_str());
             n->setOutDegree(out_degree);
 
             // Set all the out cores for this node.
-            std::stringstream ss(line.substr(first_hash_index, second_hash_index - first_hash_index));
+            std::stringstream ss(line.substr(first_hash_index + 1, second_hash_index - first_hash_index - 1));
             std::string item;
             while (std::getline(ss, item, delimitor2)) {
                 short core_no = atoi(item.c_str());
@@ -39,14 +39,18 @@ void Graph::ingestFile(std::string path) {
             }
 
             // Set all the incoming nodes.
-            std::stringstream ss1(line.substr(second_hash_index, line.length()).c_str());
-            std::string item1 = "";
-            while (std::getline(ss1, item1, delimitor2)) {
-                int core_rank_split_index = item1.find("-");
-                short core = atoi(item1.substr(0, core_rank_split_index).c_str());
-                int rank = atoi(item1.substr(core_rank_split_index, item1.length()).c_str());
-                n->addIncomingNode(core, rank);
+            if (line.length() > (second_hash_index + 1)) {
+                std::stringstream ss1(line.substr(second_hash_index + 1, line.length() - 1).c_str());
+                std::string item1 = "";
+                while (std::getline(ss1, item1, delimitor2)) {
+                    int core_rank_split_index = item1.find("-");
+                    short core = atoi(item1.substr(0, core_rank_split_index).c_str());
+                    int rank = atoi(item1.substr(core_rank_split_index + 1, item1.length() - 1).c_str());
+                     n->addIncomingNode(core, rank);
+                }
             }
+
+            this->nodes.push_back(n);
         }
     }
 }
