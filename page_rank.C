@@ -16,7 +16,7 @@
 #define DAMPING_FACTOR 0.85
 #define MAX_ITERATIONS 100
 #define DEBUG 1
-#define DEBUG_HOST 0
+#define DEBUG_HOST 7
 
 using namespace std;
 int main(int argc, char *argv[]) {
@@ -246,6 +246,13 @@ int main(int argc, char *argv[]) {
                     }
                     MPI_Recv(&(rank_messages[j]->front()), rank_messages[j]->size(), MPI_FLOAT, j, iteration, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
                 }
+            }
+        }
+        
+        MPI_Status *status = new MPI_Status[world_size];
+        for (int i=0; i < world_size; ++i) {
+            if (host_id != i && outgoing_messages[i]->size() != 0) {
+                MPI_Wait(&myRequest[i], &status[i]);
             }
         }
 
