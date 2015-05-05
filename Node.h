@@ -46,7 +46,7 @@ public:
     void addOutCore(short core_no);
 
     // Get list of all the incoming nodes.
-    vector< pair<short, int> > getIncomingNodes();
+    vector< pair<short, int> >& getIncomingNodes();
 
     // Add one incoming node.
     void addIncomingNode(short core, int rank);

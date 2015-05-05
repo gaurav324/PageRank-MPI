@@ -24,7 +24,7 @@ void Node::addOutCore(short core_no) {
     this->out_cores.push_back(core_no);
 }
 
-vector<pair<short, int> > Node::getIncomingNodes() {
+vector<pair<short, int> >& Node::getIncomingNodes() {
     return in_nodes;
 }
 
