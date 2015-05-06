@@ -15,7 +15,7 @@
 #define CONVERGENCE 1.0 / 10000
 #define DAMPING_FACTOR 0.85
 #define MAX_ITERATIONS 100
-#define DEBUG 0
+#define DEBUG 1
 #define DEBUG_HOST 0
 
 using namespace std;
@@ -167,6 +167,8 @@ int main(int argc, char *argv[]) {
         // This is the main loop, where we find new values for
         // page rank and prepare vectors to be transferred to other
         // nodes. Also we collect vectors from other nodes.
+
+        #pragma omp parallel for
         for (int j=0; j < total_local_nodes; ++j) {
             Node* node = g.getNode(j);
 
@@ -259,7 +261,7 @@ int main(int argc, char *argv[]) {
         }
 
         if (host_id == DEBUG_HOST) {
-            //cout << "Iteration " << iteration << " complete." << endl;
+            cout << "Iteration " << iteration << " complete." << endl;
         }
     }
 
