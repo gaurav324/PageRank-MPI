@@ -22,16 +22,16 @@ def main(opts, args):
     split_file_lines = f.readlines()
     f.close()
 
+    split_file_lines = map(lambda x: int(x.strip()), split_file_lines)
+
     # Create the split of the graph.
     # Basically, for every node, we want the list of outclusters, where we would like to dispatch updates.
     # And another thing, we store is 
-    split_in_nodes = []
     split_out_clusters = []
     split_out_degree = []
     in_nodes_map = {}
     cluster_node_map = []
     for i in range(int(opts.cores)):
-        split_in_nodes.append([])
         split_out_clusters.append([])
         split_out_degree.append([])
         cluster_node_map.append({})
@@ -40,15 +40,15 @@ def main(opts, args):
     cluster_2_cluster_count_map = {}
     with open(opts.graph_file + "_nonmetis", "r") as graph_file_lines:
         for i, line in enumerate(graph_file_lines):
-            cluster_no = int(split_file_lines[i].strip())
-
+            cluster_no = split_file_lines[i]
+            
             # Neighbors are 1-indexed. Therefore, subtract one to be consistent.
             neighbors = map(lambda x: int(x) - 1, line.strip().split())
             out_clusters = {}
             
             unique_n_clusters = {}
             for n in neighbors:
-                n_cluster = int(split_file_lines[n].strip())
+                n_cluster = split_file_lines[n]
                 unique_n_clusters[n_cluster] = True
 
             for n_cluster in unique_n_clusters.keys():
@@ -63,7 +63,7 @@ def main(opts, args):
                     cluster_2_cluster_count_map[cluster_no] = {n_cluster : 0}
 
             for n in neighbors:
-                n_cluster = int(split_file_lines[n].strip())
+                n_cluster = split_file_lines[n]
                 if n in in_nodes_map:
                     in_nodes_map[n].append((cluster_no, cluster_2_cluster_count_map[cluster_no][n_cluster]))
                 else:

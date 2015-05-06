@@ -15,8 +15,8 @@
 #define CONVERGENCE 1.0 / 10000
 #define DAMPING_FACTOR 0.85
 #define MAX_ITERATIONS 100
-#define DEBUG 1
-#define DEBUG_HOST 7
+#define DEBUG 0
+#define DEBUG_HOST 0
 
 using namespace std;
 int main(int argc, char *argv[]) {
@@ -69,6 +69,8 @@ int main(int argc, char *argv[]) {
     // Read in total number of nodes. //
     ////////////////////////////////////
     
+    double start_time_mpi = MPI_Wtime();
+
     // Declare an array of ints of size equals to number of MPI processes.
     int* vertex_count = (int *)malloc(sizeof(int) * world_size);
     // MPI All gather.
@@ -269,7 +271,11 @@ int main(int argc, char *argv[]) {
             //cout << "Rank of " << i << " is " << (*local_ranks)[i] << endl;
         }
     }
+    double end_time_mpi = MPI_Wtime();
     MPI_Finalize();
-    
+    if (host_id == DEBUG_HOST) {
+        cout << "Time to execute " << end_time_mpi - start_time_mpi << endl;
+    }
+
     return 0;
 }
