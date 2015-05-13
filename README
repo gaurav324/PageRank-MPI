@@ -1,5 +1,7 @@
 This is MPI implementation of the PageRankalgorithm. If you have stampede, you can enjoy the following MPI Pagerank implementation.
 
+Dataset: We used LiveJournal (https://snap.stanford.edu/data/soc-LiveJournal1.html) for all our tests.
+
 One needs to be aware of the following components to run the code:
 
 1) We want to split the graph using METIS. METIS requires the graph to be undirected, therefore we convert
