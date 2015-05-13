@@ -12,7 +12,7 @@ def main(opts, args):
 
     """
     # Execute the command to run the metis and get the cluster split.
-    os.system(opts.metis_bin + " " + opts.graph_file + " " + opts.cores)
+    #os.system(opts.metis_bin + " " + opts.graph_file + " " + opts.cores)
 
     # Split File.
     split_file = opts.graph_file + ".part." + opts.cores

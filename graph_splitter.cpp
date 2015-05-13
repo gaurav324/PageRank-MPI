@@ -14,7 +14,7 @@ using namespace std;
 int main(int argc, char *argv[]) {
     stringstream ss;
     ss << argv[3] << " " << argv[1] << " " << argv[4];
-    system(ss.str().c_str()); 
+    //system(ss.str().c_str()); 
    
     // Read in split file.
     ss.str("");

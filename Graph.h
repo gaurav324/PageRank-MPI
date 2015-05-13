@@ -40,7 +40,7 @@ class Graph {
         // Each line in the graph file, would look like
         // OutDegree#Links with which MPIs(e.g Link1, Link2..)#(incoming_node_cluster-incoming
         //                                                      node_rank_in_that_cluster,...)
-        void ingestFile(string path);
+        void ingestFile(string path, int world_size);
 
         // Given the node index, it returns the Node*.
         Node* getNode(int index);

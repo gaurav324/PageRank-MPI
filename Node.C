@@ -16,12 +16,12 @@ void Node::setOutDegree(int out_degree) {
     this->out_degree = out_degree;
 }
 
-vector<short>& Node::getOutCores() {
+vector<pair<short, int> >& Node::getOutCores() {
     return out_cores;
 }
 
-void Node::addOutCore(short core_no) {
-    this->out_cores.push_back(core_no);
+void Node::addOutCore(short core_no, int index) {
+    this->out_cores.push_back(pair<short, int>(core_no, index));
 }
 
 vector<pair<short, int> >& Node::getIncomingNodes() {

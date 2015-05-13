@@ -13,10 +13,11 @@ Graph::~Graph() {
 }
 
 // Read in graph.
-void Graph::ingestFile(std::string path) {
+void Graph::ingestFile(std::string path, int world_size) {
     ifstream myfile (path.c_str());
 
     string line;
+    int* message_count = (int*) calloc(world_size, sizeof(int));
     if (myfile.is_open()) {
         char delimitor1 = '#';
         char delimitor2 = ',';
@@ -35,7 +36,8 @@ void Graph::ingestFile(std::string path) {
             std::string item;
             while (std::getline(ss, item, delimitor2)) {
                 short core_no = atoi(item.c_str());
-                n->addOutCore(core_no);
+                n->addOutCore(core_no, message_count[core_no]);
+                message_count[core_no] += 1;
             }
 
             // Set all the incoming nodes.

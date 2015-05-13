@@ -21,10 +21,12 @@ private:
     int out_degree;
 
     // Each node maintains which all cores it would have to send updates to.
-    vector<short> out_cores;
+    vector<pair<short, int> > out_cores;
     
     // Store all of the incoming nodes. Each node is represented 
-    vector < pair<short, int> > in_nodes;
+    vector<pair<short, int> > in_nodes;
+
+
 public:
     // Constructor.
     Node();
@@ -40,10 +42,10 @@ public:
     
     // Get the vector having list of cores, to which page rank
     // would need to send updates.
-    vector<short>& getOutCores();
+    vector<pair<short, int> >& getOutCores();
 
     // Add mpi node to the out_core.
-    void addOutCore(short core_no);
+    void addOutCore(short core_no, int index);
 
     // Get list of all the incoming nodes.
     vector< pair<short, int> >& getIncomingNodes();
